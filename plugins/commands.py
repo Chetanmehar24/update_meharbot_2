@@ -174,12 +174,13 @@ async def start(client, message):
             try:
                 print('A user hit this case....')
                 zab_user_id = message.from_user.id
-                DUMPLAZY[zab_user_id] = {
+                
+                if IS_LAZYUSER_VERIFICATION and not await db.has_prime_status(zab_user_id) and not await check_verification(client, zab_user_id):
+                    DUMPLAZY[zab_user_id] = {
                     'pre': pre,
                     'file_id' : file_id
 
-                }
-                if IS_LAZYUSER_VERIFICATION and not await db.has_prime_status(zab_user_id) and not await check_verification(client, zab_user_id):
+                    }
                     lazy_url = await get_token(client, zab_user_id, f"https://telegram.me/{temp.U_NAME}?start=")
                     lazy_verify_btn = [[
                         InlineKeyboardButton("✅ Verify ✅", url=lazy_url)
@@ -484,12 +485,13 @@ async def start(client, message):
             try:
                 print('A user hit this case....')
                 zab_user_id = message.from_user.id
-                DUMPLAZY[zab_user_id] = {
-                    'pre': pre,
-                    'file_id' : file_id
-
-                }
+                
                 if IS_LAZYUSER_VERIFICATION and not await db.has_prime_status(zab_user_id) and not await check_verification(client, zab_user_id):
+                    DUMPLAZY[zab_user_id] = {
+                        'pre': pre,
+                        'file_id' : file_id
+
+                        }
                     lazy_url = await get_token(client, zab_user_id, f"https://telegram.me/{temp.U_NAME}?start=")
                     lazy_verify_btn = [[
                         InlineKeyboardButton("✅ Verify ✅", url=lazy_url)
@@ -588,12 +590,14 @@ async def start(client, message):
     try:
         print('A user hit this case....')
         zab_user_id = message.from_user.id
-        DUMPLAZY[zab_user_id] = {
+        
+        if IS_LAZYUSER_VERIFICATION and not await db.has_prime_status(zab_user_id) and not await check_verification(client, zab_user_id):
+            DUMPLAZY[zab_user_id] = {
                     'pre': pre,
                     'file_id' : file_id
 
-                }
-        if IS_LAZYUSER_VERIFICATION and not await db.has_prime_status(zab_user_id) and not await check_verification(client, zab_user_id):
+                    }
+            
             lazy_url = await get_token(client, zab_user_id, f"https://telegram.me/{temp.U_NAME}?start=")
             lazy_verify_btn = [[
                 InlineKeyboardButton("✅ Verify ✅", url=lazy_url)
