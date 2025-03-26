@@ -330,8 +330,11 @@ async def start(client, message):
     #6 => verification_steps ! [Youtube@LazyDeveloperr]
     elif data.split("-", 1)[0] == "verify":
         userid = data.split("-", 2)[1]
-        prex = DUMPLAZY[userid]["pre"]  
-        lazy_file_id = DUMPLAZY[userid]["file_id"]
+        user_ids = message.from_user.id
+        prex = DUMPLAZY[user_ids]["pre"]  
+        lazy_file_id = DUMPLAZY[user_ids]["file_id"]
+        print(prex)
+        print(lazy_file_id)
         token = data.split("-", 3)[2]
         if str(message.from_user.id) != str(userid):
             return await message.reply_text(
