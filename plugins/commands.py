@@ -23,7 +23,7 @@ import base64
 logger = logging.getLogger(__name__)
 
 BATCH_FILES = {}
-
+DUMPLAZY = {}
 @Client.on_message(filters.command("start") & filters.incoming)
 async def start(client, message):
     if message.chat.type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
@@ -174,6 +174,11 @@ async def start(client, message):
             try:
                 print('A user hit this case....')
                 zab_user_id = message.from_user.id
+                DUMPLAZY[zab_user_id] = {
+                    'pre': pre,
+                    'file_id' : file_id
+
+                }
                 if IS_LAZYUSER_VERIFICATION and not await db.has_prime_status(zab_user_id) and not await check_verification(client, zab_user_id):
                     lazy_url = await get_token(client, zab_user_id, f"https://telegram.me/{temp.U_NAME}?start=")
                     lazy_verify_btn = [[
@@ -323,6 +328,8 @@ async def start(client, message):
     #6 => verification_steps ! [Youtube@LazyDeveloperr]
     elif data.split("-", 1)[0] == "verify":
         userid = data.split("-", 2)[1]
+        prex = DUMPLAZY.get(userid, {}).get("pre")  
+        lazy_file_id = DUMPLAZY.get(userid, {}).get("file_id")
         token = data.split("-", 3)[2]
         if str(message.from_user.id) != str(userid):
             return await message.reply_text(
@@ -334,7 +341,7 @@ async def start(client, message):
             await message.reply_text(
                 text=f"<b>Hey {message.from_user.mention}, You are successfully verified !\nNow you have unlimited access for all movies till today midnight.</b>",
                 reply_markup=InlineKeyboardMarkup([[
-                    InlineKeyboardButton("📺 GET FILE ✔", url=f"https://telegram.me/{temp.U_NAME}?start=files_{file_id}")
+                    InlineKeyboardButton("📺 GET FILE ✔", url=f"https://telegram.me/{temp.U_NAME}?start={prex}_{lazy_file_id}")
                 ]]),
                 protect_content=True
             )
@@ -477,6 +484,11 @@ async def start(client, message):
             try:
                 print('A user hit this case....')
                 zab_user_id = message.from_user.id
+                DUMPLAZY[zab_user_id] = {
+                    'pre': pre,
+                    'file_id' : file_id
+
+                }
                 if IS_LAZYUSER_VERIFICATION and not await db.has_prime_status(zab_user_id) and not await check_verification(client, zab_user_id):
                     lazy_url = await get_token(client, zab_user_id, f"https://telegram.me/{temp.U_NAME}?start=")
                     lazy_verify_btn = [[
@@ -576,6 +588,11 @@ async def start(client, message):
     try:
         print('A user hit this case....')
         zab_user_id = message.from_user.id
+        DUMPLAZY[zab_user_id] = {
+                    'pre': pre,
+                    'file_id' : file_id
+
+                }
         if IS_LAZYUSER_VERIFICATION and not await db.has_prime_status(zab_user_id) and not await check_verification(client, zab_user_id):
             lazy_url = await get_token(client, zab_user_id, f"https://telegram.me/{temp.U_NAME}?start=")
             lazy_verify_btn = [[
