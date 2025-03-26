@@ -181,6 +181,7 @@ async def start(client, message):
                     'file_id' : file_id
 
                     }
+                    print(DUMPLAZY[zab_user_id])
                     lazy_url = await get_token(client, zab_user_id, f"https://telegram.me/{temp.U_NAME}?start=")
                     lazy_verify_btn = [[
                         InlineKeyboardButton("✅ Verify ✅", url=lazy_url)
@@ -329,8 +330,8 @@ async def start(client, message):
     #6 => verification_steps ! [Youtube@LazyDeveloperr]
     elif data.split("-", 1)[0] == "verify":
         userid = data.split("-", 2)[1]
-        prex = DUMPLAZY.get(userid, {}).get("pre")  
-        lazy_file_id = DUMPLAZY.get(userid, {}).get("file_id")
+        prex = DUMPLAZY[userid]["pre"]  
+        lazy_file_id = DUMPLAZY[userid]["file_id"]
         token = data.split("-", 3)[2]
         if str(message.from_user.id) != str(userid):
             return await message.reply_text(
@@ -492,6 +493,7 @@ async def start(client, message):
                         'file_id' : file_id
 
                         }
+                    print(DUMPLAZY[zab_user_id])
                     lazy_url = await get_token(client, zab_user_id, f"https://telegram.me/{temp.U_NAME}?start=")
                     lazy_verify_btn = [[
                         InlineKeyboardButton("✅ Verify ✅", url=lazy_url)
@@ -597,7 +599,7 @@ async def start(client, message):
                     'file_id' : file_id
 
                     }
-            
+            print(DUMPLAZY[zab_user_id])
             lazy_url = await get_token(client, zab_user_id, f"https://telegram.me/{temp.U_NAME}?start=")
             lazy_verify_btn = [[
                 InlineKeyboardButton("✅ Verify ✅", url=lazy_url)
